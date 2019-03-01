@@ -80,7 +80,7 @@ server.get("/smurfs", (req, res) => {
   res.json(smurfs);
 });
 
-let smurfId = 9;
+let smurfId = 10;
 
 server.post("/smurfs", (req, res) => {
   const { name, age, height } = req.body;
@@ -123,13 +123,13 @@ server.put("/smurfs/:id", (req, res) => {
   }
 });
 
-server.delete("/smurfs/:id", (req, res) => {
-  const { id } = req.params;
-  const foundSmurf = smurfs.find(smurf => smurf.id == id);
+server.delete("/smurfs", (req, res) => {
+  // const { id } = req.params;
+  const foundSmurf = smurfs.find(smurf => smurf.id == req.body.id);
 
   if (foundSmurf) {
     const SmurfRemoved = { ...foundSmurf };
-    smurfs = smurfs.filter(smurf => smurf.id != id);
+    smurfs = smurfs.filter(smurf => smurf.id != req.body.id);
     res.status(200).json(smurfs);
   } else {
     sendUserError("No smurf by that ID exists in the smurf DB", res);

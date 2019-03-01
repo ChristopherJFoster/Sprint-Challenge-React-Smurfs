@@ -7,6 +7,7 @@ class Smurfs extends Component {
     return (
       <div className="smurfs">
         <h1>Smurf Village</h1>
+        <p className="suggestion-p">Click a smurf to spotlight them!</p>
         <ul>
           {this.props.smurfs.map(smurf => {
             return (
@@ -16,6 +17,7 @@ class Smurfs extends Component {
                 age={smurf.age}
                 height={smurf.height}
                 key={smurf.id}
+                deleteSmurf={this.props.deleteSmurf}
               />
             );
           })}

@@ -5,6 +5,7 @@ import { Route } from "react-router-dom";
 import "./main.css";
 import { NavBar } from "./components/NavBar";
 import Smurfs from "./components/Smurfs";
+import Smurf from "./components/Smurf";
 import SmurfForm from "./components/SmurfForm";
 
 class App extends Component {
@@ -43,6 +44,19 @@ class App extends Component {
       });
   };
 
+  deleteSmurf = id => {
+    axios
+      .delete("http://localhost:3333/smurfs", { data: { id } })
+      .then(res => {
+        this.setState({
+          smurfs: res.data
+        });
+      })
+      .catch(err => {
+        this.setState({ error: err });
+      });
+  };
+
   render() {
     return (
       <div className="app">
@@ -51,13 +65,23 @@ class App extends Component {
           exact
           path="/"
           render={routeProps => (
-            <Smurfs {...routeProps} smurfs={this.state.smurfs} />
+            <Smurfs
+              {...routeProps}
+              smurfs={this.state.smurfs}
+              deleteSmurf={this.deleteSmurf}
+            />
           )}
         />
         <Route
           path="/smurf-form"
           render={routeProps => (
             <SmurfForm {...routeProps} submitSmurf={this.submitSmurf} />
+          )}
+        />
+        <Route
+          path="/smurf/:id"
+          render={routeProps => (
+            <Smurf {...routeProps} smurfs={this.state.smurfs} />
           )}
         />
       </div>
