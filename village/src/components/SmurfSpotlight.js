@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 let spotlightedSmurf;
 
@@ -28,6 +29,12 @@ class SmurfSpotlight extends React.Component {
         >
           Delete Smurf
         </button>
+        <Link
+          to={`/smurf-edit-form/${spotlightedSmurf.id}`}
+          className="edit-smurf-button"
+        >
+          Edit Smurf
+        </Link>
       </div>
     );
   }

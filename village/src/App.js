@@ -7,6 +7,7 @@ import { NavBar } from "./components/NavBar";
 import Smurfs from "./components/Smurfs";
 import SmurfSpotLight from "./components/SmurfSpotlight";
 import SmurfForm from "./components/SmurfForm";
+import SmurfEditForm from "./components/SmurfEditForm";
 
 class App extends Component {
   constructor(props) {
@@ -34,6 +35,19 @@ class App extends Component {
   submitSmurf = (name, age, height) => {
     axios
       .post("http://localhost:3333/smurfs", { name, age, height })
+      .then(res => {
+        this.setState({
+          smurfs: res.data
+        });
+      })
+      .catch(err => {
+        this.setState({ error: err });
+      });
+  };
+
+  submitSmurfEdits = (id, name, age, height) => {
+    axios
+      .put(`http://localhost:3333/smurfs/${id}`, { name, age, height })
       .then(res => {
         this.setState({
           smurfs: res.data
@@ -76,6 +90,16 @@ class App extends Component {
           path="/smurf-form"
           render={routeProps => (
             <SmurfForm {...routeProps} submitSmurf={this.submitSmurf} />
+          )}
+        />
+        <Route
+          path="/smurf-edit-form/:id"
+          render={routeProps => (
+            <SmurfEditForm
+              {...routeProps}
+              smurfs={this.state.smurfs}
+              submitSmurfEdits={this.submitSmurfEdits}
+            />
           )}
         />
         <Route

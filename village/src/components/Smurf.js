@@ -15,6 +15,9 @@ const Smurf = props => {
       >
         Delete Smurf
       </button>
+      <Link to={`/smurf-edit-form/${props.id}`} className="edit-smurf-button">
+        Edit Smurf
+      </Link>
     </div>
   );
 };

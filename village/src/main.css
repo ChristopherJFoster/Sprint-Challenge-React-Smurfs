@@ -68,7 +68,7 @@ h2 {
 }
 
 .spotlight {
-  width: 50%;
+  width: 40%;
 }
 
 .spotlight-link {
@@ -111,8 +111,18 @@ input {
   background: rgb(233, 74, 74);
   color: #f6f6f3;
   margin-top: 4px;
-  padding: 2px 7px;
+  padding: 4px 7px 2px 7px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.edit-smurf-button {
+  text-decoration: none;
+  font-size: 1.2em;
+  background: #62cdfd;
+  color: #f6f6f3;
+  margin: 4px 0 0 10px;
+  padding: 4px 7px 2px 7px;
+  border-radius: 5px;
 }
