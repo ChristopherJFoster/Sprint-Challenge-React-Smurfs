@@ -5,7 +5,7 @@ import { Route } from "react-router-dom";
 import "./main.css";
 import { NavBar } from "./components/NavBar";
 import Smurfs from "./components/Smurfs";
-import Smurf from "./components/Smurf";
+import SmurfSpotLight from "./components/SmurfSpotlight";
 import SmurfForm from "./components/SmurfForm";
 
 class App extends Component {
@@ -81,7 +81,11 @@ class App extends Component {
         <Route
           path="/smurf/:id"
           render={routeProps => (
-            <Smurf {...routeProps} smurfs={this.state.smurfs} />
+            <SmurfSpotLight
+              {...routeProps}
+              smurfs={this.state.smurfs}
+              deleteSmurf={this.deleteSmurf}
+            />
           )}
         />
       </div>
