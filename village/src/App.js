@@ -46,7 +46,7 @@ class App extends Component {
 
   deleteSmurf = id => {
     axios
-      .delete("http://localhost:3333/smurfs", { data: { id } })
+      .delete(`http://localhost:3333/smurfs/${id}`)
       .then(res => {
         this.setState({
           smurfs: res.data
