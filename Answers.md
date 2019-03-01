@@ -14,10 +14,10 @@
 
 4. Which HTTP methods can be mapped to the CRUD acronym that we use when interfacing with APIs/Servers?
 
-   **CRUD** :: **HTTP**
-   Create :: POST
-   Read :: GET
-   Update :: PUT
+   **CRUD** :: **HTTP**  
+   Create :: POST  
+   Read :: GET  
+   Update :: PUT  
    Delete :: DELETE
 
 5. Mention three tools we can use to make AJAX requests.
