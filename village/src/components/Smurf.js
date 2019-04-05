@@ -1,22 +1,12 @@
 import React from "react";
-// import { Link } from "react-router-dom";
-
-// Didn't leave myself enought time to figure out how to spotlight a smurf:
-// const Smurf = props => {
-//   return (
-//     <Link to={`smurf/${props.id}`} className="smurf">
-//       <h3>{props.name}</h3>
-//       <strong>{props.height} tall</strong>
-//       <p>{props.age} smurf years old</p>
-//       <button className="delete-smurf-button">Delete Smurf</button>
-//     </Link>
-//   );
-// };
+import { Link } from "react-router-dom";
 
 const Smurf = props => {
   return (
     <div className="smurf">
-      <h3>{props.name}</h3>
+      <Link to={`smurf/${props.id}`} className="spotlight-link">
+        <h3>{props.name}</h3>
+      </Link>
       <strong>{props.height} tall</strong>
       <p>{props.age} smurf years old</p>
       <button
@@ -25,6 +15,9 @@ const Smurf = props => {
       >
         Delete Smurf
       </button>
+      <Link to={`/smurf-edit-form/${props.id}`} className="edit-smurf-button">
+        Edit Smurf
+      </Link>
     </div>
   );
 };

@@ -5,8 +5,9 @@ import { Route } from "react-router-dom";
 import "./main.css";
 import { NavBar } from "./components/NavBar";
 import Smurfs from "./components/Smurfs";
-import Smurf from "./components/Smurf";
+import SmurfSpotLight from "./components/SmurfSpotlight";
 import SmurfForm from "./components/SmurfForm";
+import SmurfEditForm from "./components/SmurfEditForm";
 
 class App extends Component {
   constructor(props) {
@@ -44,9 +45,22 @@ class App extends Component {
       });
   };
 
+  submitSmurfEdits = (id, name, age, height) => {
+    axios
+      .put(`http://localhost:3333/smurfs/${id}`, { name, age, height })
+      .then(res => {
+        this.setState({
+          smurfs: res.data
+        });
+      })
+      .catch(err => {
+        this.setState({ error: err });
+      });
+  };
+
   deleteSmurf = id => {
     axios
-      .delete("http://localhost:3333/smurfs", { data: { id } })
+      .delete(`http://localhost:3333/smurfs/${id}`)
       .then(res => {
         this.setState({
           smurfs: res.data
@@ -79,9 +93,23 @@ class App extends Component {
           )}
         />
         <Route
+          path="/smurf-edit-form/:id"
+          render={routeProps => (
+            <SmurfEditForm
+              {...routeProps}
+              smurfs={this.state.smurfs}
+              submitSmurfEdits={this.submitSmurfEdits}
+            />
+          )}
+        />
+        <Route
           path="/smurf/:id"
           render={routeProps => (
-            <Smurf {...routeProps} smurfs={this.state.smurfs} />
+            <SmurfSpotLight
+              {...routeProps}
+              smurfs={this.state.smurfs}
+              deleteSmurf={this.deleteSmurf}
+            />
           )}
         />
       </div>
