@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 
-class SmurfForm extends Component {
+let smurfToEdit;
+
+class SmurfEditForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -10,11 +12,28 @@ class SmurfForm extends Component {
     };
   }
 
-  addSmurf = e => {
-    e.preventDefault();
-    // add code to create the smurf using the api
-    this.props.submitSmurf(this.state.name, this.state.age, this.state.height);
+  componentDidMount() {
+    const id = parseInt(this.props.match.params.id, 10);
+    smurfToEdit = this.props.smurfs.find(smurf => id === smurf.id);
+    if (!smurfToEdit) {
+      this.props.history.push("/");
+    } else {
+      this.setState({
+        name: smurfToEdit.name,
+        age: smurfToEdit.age,
+        height: smurfToEdit.height
+      });
+    }
+  }
 
+  editSmurf = e => {
+    e.preventDefault();
+    this.props.submitSmurfEdits(
+      parseInt(this.props.match.params.id, 10),
+      this.state.name,
+      this.state.age,
+      this.state.height
+    );
     this.setState({
       name: "",
       age: "",
@@ -29,10 +48,13 @@ class SmurfForm extends Component {
   };
 
   render() {
+    if (this.state.name === "") {
+      return <h3>Loading smurf...</h3>;
+    }
     return (
       <div className="smurf-form">
-        <h1>Who's the new Smurf?</h1>
-        <form onSubmit={this.addSmurf} className="form-inputs">
+        <h1>What needs updating?</h1>
+        <form onSubmit={this.editSmurf} className="form-inputs">
           <input
             onChange={this.handleInputChange}
             placeholder="name"
@@ -55,7 +77,7 @@ class SmurfForm extends Component {
             required
           />
           <button className="add-smurf-button" type="submit">
-            Add to the village
+            Submit Updates
           </button>
         </form>
       </div>
@@ -63,4 +85,4 @@ class SmurfForm extends Component {
   }
 }
 
-export default SmurfForm;
+export default SmurfEditForm;
